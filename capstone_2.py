@@ -128,15 +128,6 @@ test_transform = test_transform.fit(x_test)
 test_sector_transform = test_transform.fit(x_sector_test)
 
 
-# '''transform test data'''
-# docs_new = x_test
-# '''Tokenizing test data'''
-# count_vect = CountVectorizer(stop_words=stop_words)
-# x_new_counts = count_vect.fit_transform(docs_new)
-# '''TfidfTransformer test data'''
-# tfidf_transformer = TfidfTransformer()
-# x_new_tfidf = tfidf_transformer.fit_transform(x_new_counts)
-
 'NB on categories'
 NB_model = NB_clf.fit(x_train, y_train)
 
