@@ -25,8 +25,8 @@ USAID provides foreign aid project data at [USAID Data Querry](https://explorer.
 
 ## Setup
 
-### corpus - 319,974 foreign aid project descriptions (projects between 1999 and 2018)
-### targets - category classification of foreign aid projects in corpus
+### Corpus: 319,974 foreign aid project descriptions (projects between 1999 and 2018)
+### Targets: category classification of foreign aid projects in corpus
 
 ## Categories
 
