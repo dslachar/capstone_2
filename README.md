@@ -1,4 +1,4 @@
-# Natural Language Processing on US Foreign Aid Descriptions
+# Natural Language Processing of US Foreign Aid Descriptions
 
 The United States Agency for International Development (USAID) reports data on US foreign aid projects in accordance with standards established by the Organization for Economic Co-operation and Development (OECD). Member countries self-report project data to the OECD.  In 2017 alone, USAID reported more than 20,000 foreign aid projects. Can Natural Language Processing be used to gain insight on large datasets of US foreign aid? 
 

@@ -9,8 +9,8 @@ from sklearn.feature_extraction.text import TfidfTransformer
 from sklearn.feature_extraction import text
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.linear_model import SGDClassifier
-from sklearn.metrics import confusion_matrix
-#from pandas_ml import ConfusionMatrix
+#from sklearn.metrics import confusion_matrix
+from pandas_ml import ConfusionMatrix
 from sklearn.svm import SVC
 import matplotlib.pyplot as plt
 
@@ -168,19 +168,28 @@ print('SVM Sector Accuracy Score: {}'.format(np.mean(SVM_sectors_predicted == y_
 
 'confusion_matrix'
 
-labels = list(category_labels)
-cm = confusion_matrix(y_test, NB_predicted, labels)
-print(cm)
-fig = plt.figure()
-ax = fig.add_subplot(111)
-cax = ax.matshow(cm)
-plt.title('Confusion matrix of the classifiers')
-fig.colorbar(cax)
-ax.set_xticklabels([''] + labels, rotation='vertical')
-ax.set_yticklabels([''] + labels)
-plt.xlabel('Predicted')
-plt.ylabel('True')
-plt.show()
+from pandas_ml import ConfusionMatrix
+y_true, y_pred = y_test.values, NB_predicted
+confusion_matrix = ConfusionMatrix(y_true, y_pred)
+
+print(confusion_matrix.print_stats())
+
+
+
+
+# labels = list(category_labels)
+# cm = confusion_matrix(y_test, NB_predicted, labels)
+# print(cm)
+# fig = plt.figure()
+# ax = fig.add_subplot(111)
+# cax = ax.matshow(cm)
+# plt.title('Confusion matrix of the classifiers')
+# fig.colorbar(cax)
+# ax.set_xticklabels([''] + labels, rotation='vertical')
+# ax.set_yticklabels([''] + labels)
+# plt.xlabel('Predicted')
+# plt.ylabel('True')
+# plt.show()
 
 
 
