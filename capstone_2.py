@@ -6,8 +6,11 @@ from sklearn.pipeline import Pipeline
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfTransformer
+from sklearn.feature_extraction import text
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.linear_model import SGDClassifier
+from sklearn.metrics import confusion_matrix
+#from pandas_ml import ConfusionMatrix
 from sklearn.svm import SVC
 import matplotlib.pyplot as plt
 
@@ -58,13 +61,24 @@ main_df = pd.concat(dfs)
 sector_df = main_df[['fiscal_year','activity_description',
                     'dac_category_name', 'dac_sector_name']]
 
-'remove other and administrative costs categories from dataframe'
+'remove "other" and "administrative costs" categories from dataframe'
 sector_df = sector_df[sector_df.dac_category_name != 'Other']
 sector_df = sector_df[sector_df.dac_category_name != 'Administrative Costs']
 
 'remove null values'
 sector_df = sector_df.dropna()
 
+'create subdataframes by dac_category_name'
+category_labels = sector_df.dac_category_name.unique()
+
+df_governance = sector_df.loc[sector_df['dac_category_name']=='Governance']
+df_commodity = sector_df.loc[sector_df['dac_category_name']=='Commodity Assistance']
+df_infrastructure = sector_df.loc[sector_df['dac_category_name']=='Infrastructure']
+df_humanitarian = sector_df.loc[sector_df['dac_category_name']=='Humanitarian']
+df_agriculture = sector_df.loc[sector_df['dac_category_name']=='Agriculture']
+df_health_pop = sector_df.loc[sector_df['dac_category_name']=='Health and Population']
+df_economic = sector_df.loc[sector_df['dac_category_name']=='Economic Growth']
+df_education = sector_df.loc[sector_df['dac_category_name']=='Education']
 
 'create a numpy array'
 sector_arr = sector_df.values
@@ -81,19 +95,23 @@ sector_counts = sector_df.dac_sector_name.value_counts().reset_index().rename(co
 
 x = sector_df['activity_description']
 y = sector_df['dac_category_name']
+y_sector = sector_df['dac_sector_name']
 
 'train/test split'
 x_train, x_test, y_train, y_test = train_test_split(x,y)
+x_sector_train, x_sector_test, y_sector_train, y_sector_test = train_test_split(x,y_sector)
 
+'stop words'
+stop_words = text.ENGLISH_STOP_WORDS.union(list(category_labels))
 
 '''Naive Bayes Pipeline'''
-NB_clf = Pipeline([('vect', CountVectorizer()),
+NB_clf = Pipeline([('vect', CountVectorizer(stop_words=stop_words)),
                      ('tfidf', TfidfTransformer()),
                      ('NB_clf', MultinomialNB())
 ])
 
 '''SVM Pipeline'''
-SVM_clf = Pipeline([('vect', CountVectorizer()),
+SVM_clf = Pipeline([('vect', CountVectorizer(stop_words=stop_words)),
                     ('tfidf', TfidfTransformer()),
                     ('SVM_clf', SGDClassifier(loss='hinge', penalty='l2',
                                             alpha=1e-3, random_state=42,
@@ -101,40 +119,86 @@ SVM_clf = Pipeline([('vect', CountVectorizer()),
 ])
 
 '''Test Data Transform Pipeline'''
-test_transform = Pipeline([('vect', CountVectorizer()),
+test_transform = Pipeline([('vect', CountVectorizer(stop_words=stop_words)),
                            ('tfidf', TfidfTransformer())
 
 ])
 
+test_transform = test_transform.fit(x_test)
+test_sector_transform = test_transform.fit(x_sector_test)
 
 
-'''transform test data'''
-docs_new = x_test
-'''Tokenizing test data'''
-count_vect = CountVectorizer()
-x_new_counts = count_vect.fit_transform(docs_new)
+# '''transform test data'''
+# docs_new = x_test
+# '''Tokenizing test data'''
+# count_vect = CountVectorizer(stop_words=stop_words)
+# x_new_counts = count_vect.fit_transform(docs_new)
+# '''TfidfTransformer test data'''
+# tfidf_transformer = TfidfTransformer()
+# x_new_tfidf = tfidf_transformer.fit_transform(x_new_counts)
 
-'''TfidfTransformer test data'''
-tfidf_transformer = TfidfTransformer()
-x_new_tfidf = tfidf_transformer.fit_transform(x_new_counts)
-
-
-
-
-
-
+'NB on categories'
 NB_model = NB_clf.fit(x_train, y_train)
-#NB_test_transform = test_transform(x_test)
-# 'predictions'
+
+'predictions'
 NB_predicted = NB_model.predict(x_test)
 
 print('Naive Bayes Accuracy Score: {}'.format(np.mean(NB_predicted == y_test)))
 
-SGD_model = SGD_clf.fit(x_train,y_train)
+'SVM on categories'
+SVM_model = SVM_clf.fit(x_train,y_train)
 
-SGD_predicted = SGD_model.predict(x_test)
+SVM_predicted = SVM_model.predict(x_test)
 
-print('SGD Accuracy Score: {}'.format(np.mean(SGD_predicted == y_test)))
+print('SGD Accuracy Score: {}'.format(np.mean(SVM_predicted == y_test)))
+
+'NB on sectors'
+NB_sectors_model = NB_clf.fit(x_sector_train, y_sector_train)
+'predictions'
+NB_sectors_predicted = NB_model.predict(x_sector_test)
+
+print('NB Sector Accuracy Score: {}'.format(np.mean(NB_sectors_predicted == y_sector_test)))
+
+'SVM on sectors'
+SVM_sectors_model = SVM_clf.fit(x_sector_train, y_sector_train)
+'predictions'
+SVM_sectors_predicted = SVM_model.predict(x_sector_test)
+
+print('SVM Sector Accuracy Score: {}'.format(np.mean(SVM_sectors_predicted == y_sector_test)))
+
+'confusion_matrix'
+
+labels = list(category_labels)
+cm = confusion_matrix(y_test, NB_predicted, labels)
+print(cm)
+fig = plt.figure()
+ax = fig.add_subplot(111)
+cax = ax.matshow(cm)
+plt.title('Confusion matrix of the classifiers')
+fig.colorbar(cax)
+ax.set_xticklabels([''] + labels, rotation='vertical')
+ax.set_yticklabels([''] + labels)
+plt.xlabel('Predicted')
+plt.ylabel('True')
+plt.show()
+
+
+
+'''
+y_true, y_pred = y_test, SVM_predicted
+confusion_matrix = ConfusionMatrix(y_true, y_pred)
+print(confusion_matrix)
+confusion_matrix.plot()
+plt.show()
+'''
+
+
+
+
+
+
+
+
 
 
 
