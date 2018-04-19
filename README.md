@@ -56,19 +56,19 @@ USAID provides foreign aid project data at [USAID Data Querry](https://explorer.
 
 ## Modeling([code](https://github.com/dslachar/capstone_2))
 
-####Fit the test data to two different models:
+#### Fit the test data to two different models:
 	
 	* SKLearn Multinomial Naive Bayes
 	* SKLearn Linear Support Vector Machine
 
-####Multinomial Naive Bayes achieves a slightly better accuracy score.
+#### Multinomial Naive Bayes achieves a slightly better accuracy score.
 
 	* Naive Bayes Accuracy Score: 0.852 (95% CI 0.849 - 0.854)
 	* Linear SVM Accuracy Score: 0.839
 
-####Insights
+#### Insights
 
-| Category | Recall |
+| Category | TPR |
 | ------- | -----|
 |Agriculture| 0.760 |
 |Commodity Assistance| 0.847|
@@ -80,7 +80,10 @@ USAID provides foreign aid project data at [USAID Data Querry](https://explorer.
 |Infarstructure| 0.750 |
 
 
-## Future Directions
+## To MVP
+
+* Need to look for patterns in false positives in Education and Economic Growth
+* print common words and phrases from each category
 
 
 ## References
