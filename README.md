@@ -1,11 +1,11 @@
-<center><img alt="USAID logo"src="images/usaid_seal.png" width='300'> </center>
+<center><img alt="USAID logo"src="images/usaid_seal.png" width='300'> </center>
 
 # Natural Language Processing of US Foreign Aid Descriptions
 
-##Can Natural Language Processing be used to gain insight on large datasets of US foreign aid? 
+## Can Natural Language Processing be used to gain insight on large datasets of US foreign aid? 
 
-##Hypothesis:
-###NLP can efficiently identify projects from a large database for further investigation of their classification. 
+## Hypothesis:
+### NLP can efficiently identify projects from a large database for further investigation of their classification. 
 
 
 
@@ -27,7 +27,7 @@
 
 * USAID provides foreign aid project data at [USAID Data Querry](https://explorer.usaid.gov/query). There are over 467,000 records available dating to 1946.  
 
-#The Data
+# The Data
 <img alt="datasnippet" src="images/data.png" width='700'> 
  
 
@@ -85,9 +85,9 @@ src="images/yearly_fa_spending.png" width='700'>
 
 # Insights
 
-##Can these classification models be used to gain insight into US Foreign Aid Classification?
+## Can these classification models be used to gain insight into US Foreign Aid Classification?
 
-##1. Identify Categories more prone to misclassification.
+## 1. Identify Categories more prone to misclassification.
 
 | Category | Accuracy |
 | ------- | -----|
@@ -100,34 +100,34 @@ src="images/yearly_fa_spending.png" width='700'>
 |Humanitarian| 0.849 |
 |Infrastructure| 0.750 |
 
-##2. Pull activity descriptions which were misclassified.
+## 2. Pull activity descriptions which were misclassified.
 
-###In many cases, it appeared activity descriptions were misclassified because of brevity of text...
+### In many cases, it appeared activity descriptions were misclassified because of brevity of text...
 
-####USAID classification: Education 
-####My model prediction: Governance
+#### USAID classification: Education 
+#### My model prediction: Governance
 
 <img alt="misclass brevity" src="images/misclass_brevity.png" width='500'>
 
 
 ###or had obvious overlap between two categories...
 
-####USAID classification: Education 
-####My model prediction: Governance
+#### USAID classification: Education 
+#### My model prediction: Governance
 <center><img alt="misclass overlap" src="images/misclass_overlap.png" width='500'></center>
 
-###however, visually scanning the misclassification tables, I did find a few interesting classifications -  
+### however, visually scanning the misclassification tables, I did find a few interesting classifications -  
 
-####USAID classification: Education 
-####My model prediction: Governance 
+#### USAID classification: Education 
+#### My model prediction: Governance 
 
 <center><img alt="missclass_3" src="images/missclass_3.png" width='500'></center>
 
 <center><img alt="misclass_2" src="images/misclass_activity_description_2.png" width='500'></center>
 
-###It would be interesting to dig deeper into the CERP program to see if the money is being used for educational purposes.
+### It would be interesting to dig deeper into the CERP program to see if the money is being used for educational purposes.
 
-#Further Exploration
+# Further Exploration
 * Cluster on the misclassification tables to see why projects are misclassified.
 
 ## References
