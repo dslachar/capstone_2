@@ -45,7 +45,7 @@ src="images/yearly_fa_spending.png" width='700'>
 * Corpus: 319,974 foreign aid project descriptions (projects between 1999 and 2018)
 * Targets: category classification of foreign aid projects
 
-## Categories
+## Class Balance
 
 <img alt="Category Counts Plot" src="images/category_counts_plot.png" width='600'>
 
