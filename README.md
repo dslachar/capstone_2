@@ -32,7 +32,7 @@
  
 
 
-##Yearly Foreign Aid Expenditures 1999 - 2018( ~ March)
+## Yearly Foreign Aid Expenditures 1999 - 2018( ~ March)
 <img alt="yearly spending"
 src="images/yearly_fa_spending.png" width='700'>
 
@@ -40,7 +40,7 @@ src="images/yearly_fa_spending.png" width='700'>
 
 # Setup
 
-###I tried to make a prediction model that could efficiently identify foreign aid projects with classifications which could be further investigated.
+### I tried to make a prediction model that could efficiently identify foreign aid projects with classifications which could be further investigated.
 
 * Corpus: 319,974 foreign aid project descriptions (projects between 1999 and 2018)
 * Targets: category classification of foreign aid projects
