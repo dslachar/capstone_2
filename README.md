@@ -116,7 +116,7 @@ src="images/yearly_fa_spending.png" width='700'>
 #### My model prediction: Governance
 <center><img alt="misclass overlap" src="images/misclass_overlap.png" width='500'></center>
 
-### however, visually scanning the misclassification tables, I did find a few interesting classifications -  
+### However, visually scanning the misclassification tables, I did find some interesting classifications -  
 
 #### USAID classification: Education 
 #### My model prediction: Governance 
