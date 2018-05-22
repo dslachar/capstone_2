@@ -82,6 +82,11 @@ src="images/yearly_fa_spending.png" width='700'>
 
 	* Naive Bayes Accuracy Score: 0.852 (95% CI 0.849 - 0.854)
 	* Linear SVM Accuracy Score: 0.839
+	
+| Model       | Accuracy        |
+| ---------   | ----------------|
+|Naive Bayes  |   0.852         |
+|SVM          |   0.839         |
 
 # Insights
 
